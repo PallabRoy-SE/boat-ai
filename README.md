@@ -1,4 +1,4 @@
-# Boat AI [Demo](https://medify-zeta.vercel.app/)
+# Boat AI [Demo](https://boat-ai.vercel.app/)
 
 An application where the user can chat with an AI like model. Beyond
 this, the user should be able to give some feedback at each stage of the conversation.
@@ -45,7 +45,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Deployment
 
-This project was deployed in vercel [Take a look](https://medify-zeta.vercel.app/)
+This project was deployed in vercel [Take a look](https://boat-ai.vercel.app/)
 
 ### Choices
 
