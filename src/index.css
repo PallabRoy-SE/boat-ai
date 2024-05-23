@@ -1,6 +1,12 @@
 :root {
   --font-ubuntu: "Ubuntu", sans-serif;
   --font-open-sans: "Open Sans", sans-serif;
+  --color-primary: #d7c7f4;
+  --background-color: linear-gradient(
+    180deg,
+    rgba(215, 199, 244, 0.2) 0%,
+    rgba(151, 133, 186, 0.2) 100%
+  );
 }
 
 *,
@@ -19,6 +25,7 @@ body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  background: var(--background-color);
 }
 img,
 picture,
