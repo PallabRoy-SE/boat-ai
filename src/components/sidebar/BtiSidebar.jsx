@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import React from "react";
 import logo from "../../assets/logo.png";
-import { ReactComponent as Edit } from "../../assets/edit.svg";
+import edit from "../../assets/edit.png";
 import { colors } from "../../theme/variable";
 
 function BtiSidebar() {
@@ -36,7 +36,7 @@ function BtiSidebar() {
             sx={{
               boxShadow: "0px 4px 4px 0px #00000040",
               "& img": {
-                transform: "scale(4) translate(13px, 6px)",
+                transform: "scale(4) translate(0.8rem, 0.4rem)",
               },
             }}
           />
@@ -48,12 +48,18 @@ function BtiSidebar() {
           >
             New Chat
           </Typography>
-          <Edit cursor="pointer" />
+          <Avatar
+            sx={{ cursor: "pointer" }}
+            variant="square"
+            alt="edit"
+            src={edit}
+          />
         </Box>
       </Box>
       <Button
         variant="contained"
         sx={{
+          borderRadius: "10px",
           marginInline: "1rem",
           marginTop: "1rem",
           fontWeight: "600",
