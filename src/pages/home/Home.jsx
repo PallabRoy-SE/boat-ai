@@ -68,6 +68,7 @@ function Home() {
       >
         <TextField
           type="text"
+          placeholder="Ask questions..."
           sx={{
             width: "85%",
             borderRadius: "5px",
