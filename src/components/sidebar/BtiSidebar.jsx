@@ -3,8 +3,11 @@ import React from "react";
 import logo from "../../assets/logo.png";
 import edit from "../../assets/edit.png";
 import { colors } from "../../theme/variable";
+import { Link, useNavigate } from "react-router-dom";
+import { HistoryOutlined } from "@mui/icons-material";
 
-function BtiSidebar() {
+function BtiSidebar({ onToggleSidebar }) {
+  const navigate = useNavigate();
   return (
     <Box
       component="section"
@@ -19,6 +22,11 @@ function BtiSidebar() {
         height="3rem"
         sx={{
           background: colors.primary,
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          navigate("/");
+          onToggleSidebar && onToggleSidebar((prev) => !prev);
         }}
       >
         <Box
@@ -40,34 +48,33 @@ function BtiSidebar() {
               },
             }}
           />
-          <Typography
-            component="span"
-            mx={2}
-            fontSize="1.25rem"
-            sx={{ cursor: "pointer" }}
-          >
+          <Typography component="span" mx={2} fontSize="1.25rem">
             New Chat
           </Typography>
-          <Avatar
-            sx={{ cursor: "pointer" }}
-            variant="square"
-            alt="edit"
-            src={edit}
-          />
+          <Avatar variant="square" alt="edit" src={edit} />
         </Box>
       </Box>
-      <Button
-        variant="contained"
-        sx={{
-          borderRadius: "10px",
+      <Link
+        to="/history"
+        style={{
           marginInline: "1rem",
           marginTop: "1rem",
-          fontWeight: "600",
-          fontSize: "1rem",
         }}
       >
-        Past Conversations
-      </Button>
+        <Button
+          variant="contained"
+          onClick={() => onToggleSidebar && onToggleSidebar((prev) => !prev)}
+          sx={{
+            width: "100%",
+            borderRadius: "10px",
+            fontWeight: "600",
+            fontSize: "1rem",
+          }}
+          startIcon={<HistoryOutlined />}
+        >
+          Past Conversations
+        </Button>
+      </Link>
     </Box>
   );
 }
