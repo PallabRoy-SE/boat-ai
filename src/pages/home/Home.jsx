@@ -21,22 +21,11 @@ import { colors, fonts } from "../../theme/variable";
 import BtiChatCard from "../../components/chat-card/BtiChatCard";
 import moment from "moment";
 import useLocalStorage from "../../hooks/useLocalStorage";
-
-const suggestions = [
-  {
-    title: "Hi, what is the weather",
-    subTitle: "Get immediate AI generated response",
-  },
-  {
-    title: "Hi, what is my location",
-    subTitle: "Get immediate AI generated response",
-  },
-  {
-    title: "Hi, what is the temperature",
-    subTitle: "Get immediate AI generated response",
-  },
-  { title: "Hi, how are you", subTitle: "Get immediate AI generated response" },
-];
+import {
+  getRelativeAnswer,
+  getSuggestions,
+} from "../../services/helperService";
+import { useLocation } from "react-router-dom";
 
 function Home() {
   const [, setLocalChats] = useLocalStorage("chats");
@@ -45,21 +34,25 @@ function Home() {
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
   const [feedBack, setFeedBack] = useState("");
+  const location = useLocation();
 
   const addMessage = (message, type) => {
     const newChat = {
       id: `chat-${Math.random() * 10 * 9}-${new Date().getTime()}`,
       message: message,
       type: type,
+      like: 0,
       time: moment().format("hh:mm A"),
     };
     setChats((prev) => [...prev, newChat]);
   };
 
-  const askQuestion = () => {
-    if (message) {
-      addMessage(message, "YOU");
+  const askQuestion = (pMessage = message) => {
+    if (pMessage) {
+      addMessage(pMessage, "YOU");
       setMessage("");
+      const answer = getRelativeAnswer(pMessage);
+      addMessage(answer, "AI");
     }
   };
 
@@ -96,6 +89,28 @@ function Home() {
     handleDialogClose();
   };
 
+  const handleLikeDislike = (action, id) => {
+    const chatIndex = chats.findIndex((chat) => chat.id === id);
+    if (chatIndex !== -1) {
+      if (chats[chatIndex].like === action) {
+        chats[chatIndex].like = 0;
+      } else chats[chatIndex].like = action;
+      setChats(() => [...chats]);
+    }
+  };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const newState =
+      queryParams.get("new") && queryParams.get("new") === "true"
+        ? true
+        : false;
+    if (newState) {
+      setMessage("");
+      setChats([]);
+    }
+  }, [location]);
+
   useEffect(() => {
     if (chats.length > 0) {
       const lastChat = chats[chats.length - 1];
@@ -119,10 +134,8 @@ function Home() {
             {chats.map((chat) => (
               <BtiChatCard
                 key={chat.id}
-                type={chat.type}
-                message={chat.message}
-                time={chat.time}
-                like={chat.like}
+                chat={chat}
+                handleLikeDislike={handleLikeDislike}
                 id={chat.id}
               />
             ))}
@@ -144,11 +157,17 @@ function Home() {
               }}
             />
             <Grid2 container spacing={2} width="100%" mt={3} overflow="auto">
-              {suggestions.map((suggestion, index) => (
-                <Grid2 key={`suggestion-${index + 1}`} md={6} width="100%">
+              {getSuggestions().map((suggestion, index) => (
+                <Grid2
+                  key={`suggestion-${index + 1}`}
+                  md={6}
+                  width="100%"
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => askQuestion(suggestion)}
+                >
                   <BtiSuggestionCard
-                    title={suggestion.title}
-                    subTitle={suggestion.subTitle}
+                    title={suggestion}
+                    subTitle="Get immediate AI generated response"
                   />
                 </Grid2>
               ))}

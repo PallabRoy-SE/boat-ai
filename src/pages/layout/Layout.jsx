@@ -23,7 +23,7 @@ function Layout() {
             toggleSidebar(false);
           }}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -45,6 +45,7 @@ function Layout() {
         >
           <Routes>
             <Route path="/" Component={Home} />
+            <Route path="/new" Component={Home} />
             <Route path="/history" Component={History} />
           </Routes>
         </Container>

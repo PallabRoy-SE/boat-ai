@@ -3,14 +3,7 @@ import React from "react";
 import { colors } from "../../theme/variable";
 import BtiChat from "../chat/BtiChat";
 
-function BtiChatCard({
-  type = "AI",
-  message = "message text",
-  time = "00:00 AM",
-  like = 1,
-  handleLikeDislike,
-  ...attributes
-}) {
+function BtiChatCard({ chat, handleLikeDislike, ...attributes }) {
   return (
     <Box
       component="div"
@@ -28,13 +21,7 @@ function BtiChatCard({
       }}
       {...attributes}
     >
-      <BtiChat
-        type={type}
-        message={message}
-        time={time}
-        like={like}
-        handleLikeDislike={handleLikeDislike}
-      />
+      <BtiChat chat={chat} handleLikeDislike={handleLikeDislike} />
     </Box>
   );
 }

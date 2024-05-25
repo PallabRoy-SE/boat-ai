@@ -25,7 +25,7 @@ function BtiSidebar({ onToggleSidebar }) {
           cursor: "pointer",
         }}
         onClick={() => {
-          navigate("/");
+          navigate("/?new=true");
           onToggleSidebar && onToggleSidebar((prev) => !prev);
         }}
       >

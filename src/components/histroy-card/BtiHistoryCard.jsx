@@ -23,10 +23,7 @@ function BtiHistoryCard({ chatData }) {
       {chatData?.chats?.map((chat, index) => (
         <BtiChat
           key={chat.id}
-          type={chat.type}
-          message={chat.message}
-          time={chat.time}
-          like={chat.like}
+          chat={chat}
           sx={{
             [`&:not(:nth-of-type(${chatData.chats.length}))`]: {
               mb: 4,
