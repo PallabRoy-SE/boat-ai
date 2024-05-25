@@ -5,7 +5,7 @@ import { colors, fonts } from "../../theme/variable";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { getDateStringFromNow } from "../../services/helperService";
 function History() {
-  const [chats] = useLocalStorage("chats");
+  const [chats] = useLocalStorage("chats", []);
   return (
     <Box component="section">
       <Typography component="p" fontSize="1.75rem" textAlign="center" mb={6}>

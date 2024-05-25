@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 function Feedback() {
-  const [chats] = useLocalStorage("chats");
+  const [chats] = useLocalStorage("chats", []);
   const [mainFeedBacks, setMainFeedBacks] = useState([]);
   const [feedBacks, setFeedBacks] = useState([]);
   const [order, setOrder] = useState(false);
