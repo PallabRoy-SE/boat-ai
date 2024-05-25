@@ -2,9 +2,10 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React, { useState } from "react";
 import BtiSidebar from "../../components/sidebar/BtiSidebar";
 import BtiNavbar from "../../components/navbar/BtiNavbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "../home/Home";
 import { Container, Drawer } from "@mui/material";
+import History from "../history/History";
 
 function Layout() {
   const [sidebar, toggleSidebar] = useState(false);
@@ -31,7 +32,7 @@ function Layout() {
             },
           }}
         >
-          {<BtiSidebar />}
+          {<BtiSidebar onToggleSidebar={toggleSidebar} />}
         </Drawer>
       </Grid2>
       <Grid2 xs={12} sm={8} md={9} xl={10}>
@@ -42,11 +43,10 @@ function Layout() {
             height: "calc(100vh - 3rem)",
           }}
         >
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" Component={Home} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="/" Component={Home} />
+            <Route path="/history" Component={History} />
+          </Routes>
         </Container>
       </Grid2>
     </Grid2>

@@ -1,4 +1,4 @@
-import { Avatar, Box, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, IconButton, Rating, Typography } from "@mui/material";
 import React from "react";
 import userLogo from "../../assets/user.png";
 import aiLogo from "../../assets/logo.png";
@@ -11,23 +11,17 @@ function BtiChat({
   time = "00:00 AM",
   like = 1,
   handleLikeDislike,
+  sx,
+  rating,
+  readOnly,
 }) {
   return (
     <Box
       component="div"
       flexDirection={{ sm: "row", xs: "column" }}
       sx={{
-        backgroundColor: colors.chatBg,
-        boxShadow: "-4px 4px 15px 0px #0000001A",
-        borderRadius: "20px",
         display: "flex",
-        p: 2,
-        mb: 3,
-        "&:hover": {
-          "#likeDislikeContainer": {
-            visibility: "visible",
-          },
-        },
+        ...sx,
       }}
     >
       <Box
@@ -83,6 +77,7 @@ function BtiChat({
           display="flex"
           flexDirection="row"
           alignItems="center"
+          flexWrap="wrap"
           mt={2.5}
         >
           <Typography
@@ -90,21 +85,22 @@ function BtiChat({
             fontFamily={fonts.openSans}
             fontSize="0.75rem"
             color={colors.textGrey}
+            mr={3}
           >
             {time}
           </Typography>
-          {type === "AI" ? (
+          {handleLikeDislike ? (
             <Box
-              visibility="hidden"
+              visibility={readOnly ? null : { sm: "hidden", xs: "visible" }}
               component="div"
               id="likeDislikeContainer"
-              ml={3}
+              mr={3}
               sx={{
                 transition: "0.1s all ease-in-out",
               }}
             >
               <IconButton
-                onClick={() => handleLikeDislike && handleLikeDislike(true)}
+                onClick={() => handleLikeDislike(true)}
                 sx={{
                   backgroundColor: like > 0 ? colors.textViolet : "initial",
                   "&:hover": {
@@ -122,7 +118,7 @@ function BtiChat({
                 />
               </IconButton>
               <IconButton
-                onClick={() => handleLikeDislike && handleLikeDislike(false)}
+                onClick={() => handleLikeDislike(false)}
                 sx={{
                   ml: 1,
                   backgroundColor: like < 0 ? colors.textViolet : "initial",
@@ -141,6 +137,16 @@ function BtiChat({
                 />
               </IconButton>
             </Box>
+          ) : null}
+          {rating ? (
+            <Rating
+              sx={{
+                color: colors.black,
+                width: "5rem",
+              }}
+              value={rating}
+              readOnly={readOnly}
+            />
           ) : null}
         </Box>
       </Box>
