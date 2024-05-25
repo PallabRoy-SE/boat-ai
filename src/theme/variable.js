@@ -1,4 +1,4 @@
-export const colors = {
+const colors = {
   white: "#FFFFFF",
   textViolet: "#9785BA",
   grey: "#00000080",
@@ -12,3 +12,5 @@ export const fonts = {
   ubuntu: '"Ubuntu", sans-serif',
   openSans: '"Open Sans", sans-serif',
 };
+
+export { colors };

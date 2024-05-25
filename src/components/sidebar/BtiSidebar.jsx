@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 import edit from "../../assets/edit.png";
 import { colors } from "../../theme/variable";
 import { Link, useNavigate } from "react-router-dom";
-import { HistoryOutlined } from "@mui/icons-material";
+import { FeedbackOutlined, HistoryOutlined } from "@mui/icons-material";
 
 function BtiSidebar({ onToggleSidebar }) {
   const navigate = useNavigate();
@@ -73,6 +73,27 @@ function BtiSidebar({ onToggleSidebar }) {
           startIcon={<HistoryOutlined />}
         >
           Past Conversations
+        </Button>
+      </Link>
+      <Link
+        to="/feedbacks"
+        style={{
+          marginInline: "1rem",
+          marginTop: "1rem",
+        }}
+      >
+        <Button
+          variant="contained"
+          onClick={() => onToggleSidebar && onToggleSidebar((prev) => !prev)}
+          sx={{
+            width: "100%",
+            borderRadius: "10px",
+            fontWeight: "600",
+            fontSize: "1rem",
+          }}
+          startIcon={<FeedbackOutlined />}
+        >
+          Feedbacks
         </Button>
       </Link>
     </Box>
