@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../home/Home";
 import { Container, Drawer } from "@mui/material";
 import History from "../history/History";
+import Feedbacks from "../feedbacks/Feedbacks";
 
 function Layout() {
   const [sidebar, toggleSidebar] = useState(false);
@@ -23,7 +24,7 @@ function Layout() {
             toggleSidebar(false);
           }}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -45,7 +46,9 @@ function Layout() {
         >
           <Routes>
             <Route path="/" Component={Home} />
+            <Route path="/new" Component={Home} />
             <Route path="/history" Component={History} />
+            <Route path="/feedbacks" Component={Feedbacks} />
           </Routes>
         </Container>
       </Grid2>

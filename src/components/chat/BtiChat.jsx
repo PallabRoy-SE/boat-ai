@@ -5,16 +5,7 @@ import aiLogo from "../../assets/logo.png";
 import { colors, fonts } from "../../theme/variable";
 import { ThumbDownOutlined, ThumbUpAltOutlined } from "@mui/icons-material";
 
-function BtiChat({
-  type = "AI",
-  message = "message text",
-  time = "00:00 AM",
-  like = 1,
-  handleLikeDislike,
-  sx,
-  rating,
-  readOnly,
-}) {
+function BtiChat({ chat, handleLikeDislike, sx, rating, readOnly }) {
   return (
     <Box
       component="div"
@@ -33,14 +24,16 @@ function BtiChat({
         my={1}
       >
         <Avatar
-          alt={type === "AI" ? "ai_logo" : "user_logo"}
-          src={type === "AI" ? aiLogo : userLogo}
+          alt={chat.type === "AI" ? "ai_logo" : "user_logo"}
+          src={chat.type === "AI" ? aiLogo : userLogo}
           sx={{
             width: { xs: "3rem", sm: "5rem" },
             height: { xs: "3rem", sm: "5rem" },
             "& img": {
               transform:
-                type === "AI" ? "scale(2)" : "scale(1.8) translateY(0.6rem)",
+                chat.type === "AI"
+                  ? "scale(2)"
+                  : "scale(1.8) translateY(0.6rem)",
             },
           }}
         />
@@ -51,7 +44,7 @@ function BtiChat({
           fontSize="1rem"
           ml={2}
         >
-          {type === "AI" ? "Boat AI" : "You"}
+          {chat.type === "AI" ? "Boat AI" : "You"}
         </Typography>
       </Box>
       <Box component="div">
@@ -61,7 +54,7 @@ function BtiChat({
           fontWeight={700}
           fontSize="1rem"
         >
-          {type === "AI" ? "Boat AI" : "You"}
+          {chat.type === "AI" ? "Boat AI" : "You"}
         </Typography>
         <Typography
           component="p"
@@ -70,7 +63,7 @@ function BtiChat({
           mt={0.5}
           mx={{ xs: 1, sm: 0 }}
         >
-          {message}
+          {chat.message}
         </Typography>
         <Box
           component="div"
@@ -87,9 +80,9 @@ function BtiChat({
             color={colors.textGrey}
             mr={3}
           >
-            {time}
+            {chat.time}
           </Typography>
-          {handleLikeDislike ? (
+          {chat.type === "AI" ? (
             <Box
               visibility={readOnly ? null : { sm: "hidden", xs: "visible" }}
               component="div"
@@ -100,9 +93,14 @@ function BtiChat({
               }}
             >
               <IconButton
-                onClick={() => handleLikeDislike(true)}
+                onClick={() =>
+                  !readOnly &&
+                  handleLikeDislike &&
+                  handleLikeDislike(1, chat.id)
+                }
                 sx={{
-                  backgroundColor: like > 0 ? colors.textViolet : "initial",
+                  backgroundColor:
+                    chat.like > 0 ? colors.textViolet : "initial",
                   "&:hover": {
                     "& svg": {
                       color: colors.textGrey,
@@ -112,16 +110,21 @@ function BtiChat({
               >
                 <ThumbUpAltOutlined
                   sx={{
-                    color: like > 0 ? colors.white : colors.textGrey,
+                    color: chat.like > 0 ? colors.white : colors.textGrey,
                     fontSize: "1rem",
                   }}
                 />
               </IconButton>
               <IconButton
-                onClick={() => handleLikeDislike(false)}
+                onClick={() =>
+                  !readOnly &&
+                  handleLikeDislike &&
+                  handleLikeDislike(-1, chat.id)
+                }
                 sx={{
                   ml: 1,
-                  backgroundColor: like < 0 ? colors.textViolet : "initial",
+                  backgroundColor:
+                    chat.like < 0 ? colors.textViolet : "initial",
                   "&:hover": {
                     "& svg": {
                       color: colors.textGrey,
@@ -131,7 +134,7 @@ function BtiChat({
               >
                 <ThumbDownOutlined
                   sx={{
-                    color: like < 0 ? colors.white : colors.textGrey,
+                    color: chat.like < 0 ? colors.white : colors.textGrey,
                     fontSize: "1rem",
                   }}
                 />
